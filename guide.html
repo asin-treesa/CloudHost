@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Final Year Project Portal - Guide Review</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #e6f0f8, #c2d2db);
+        margin: 0;
+      }
+
+      .header {
+        background: #4b6874;
+        color: #ffffff;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header .username {
+        display: flex;
+        align-items: center;
+      }
+
+      .header .username span {
+        margin-left: 10px;
+        color: #ffffff;
+      }
+
+      .container {
+        background: #95b5c1;
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 25px 30px;
+        border-radius: 12px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        color: white;
+      }
+
+      .field {
+        margin-bottom: 15px;
+      }
+
+      .field textarea,
+      .field select,
+      .field input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 6px;
+        background: #f0f0f0;
+        color: #000;
+      }
+
+      .file-upload {
+        border: 2px dashed #ccc;
+        padding: 30px;
+        text-align: center;
+        color: #eee;
+        border-radius: 8px;
+        background: #597f94;
+        margin-bottom: 20px;
+      }
+
+      .post-btn {
+        background: #00bfff;
+        color: white;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      .post-btn:hover {
+        background: #0099cc;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="username">
+        <div
+          style="
+            background: #888;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+          "
+        ></div>
+        <span>username<br /><small>Guide</small></span>
+      </div>
+      <div>
+        <strong>Final Year<br />Project Portal</strong>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Posted for Review</h2>
+      <p>Welcome username,</p>
+      <h3>Student list</h3>
+
+      <div class="field">
+        <select id="student1"></select
+        ><br /><br />
+        <select id="student2"></select>
+      </div>
+
+      <div class="field">
+        <label>Guide Assigned</label>
+        <input type="text" id="assignedGuide" readonly />
+      </div>
+
+      <div class="file-upload" id="fileDetails">Files uploaded</div>
+
+      <div class="field">
+        <label>Student Comment</label>
+        <textarea id="studentComment" readonly></textarea>
+      </div>
+
+      <div class="field">
+        <label>Review Date</label>
+        <input type="text" id="reviewDate" placeholder="DD/MM/YYYY" />
+      </div>
+
+      <div class="field">
+        <label>Guide Comment</label>
+        <textarea></textarea>
+      </div>
+
+      <button class="post-btn">Post</button>
+    </div>
+
+    <script>
+      const data = JSON.parse(localStorage.getItem("studentData"));
+      const fileBox = document.getElementById("fileDetails");
+
+      if (data) {
+        const members = data.members.split(",");
+        const title = data.title;
+        const comment = data.comment;
+        const guide = data.guide;
+        const file = data.file;
+
+        document.getElementById(
+          "student1"
+        ).innerHTML = `<option>${members[0].trim()} - ${title}</option>`;
+        document.getElementById("student2").innerHTML = `<option>${
+          members[1]?.trim() || ""
+        } - ${title}</option>`;
+        document.getElementById("studentComment").value = comment;
+        document.getElementById("assignedGuide").value = guide;
+
+        // File details
+        if (file && file.name) {
+          fileBox.innerHTML = `
+            <strong>📄 File Uploaded</strong><br /><br />
+            <p><strong>Name:</strong> ${file.name}</p>
+            <p><strong>Type:</strong> ${file.type}</p>
+            <p><strong>Size:</strong> ${Math.round(file.size / 1024)} KB</p>
+          `;
+        } else {
+          fileBox.innerHTML = "No file uploaded.";
+        }
+      } else {
+        alert("No student data found. Submit from student portal first!");
+      }
+
+      document
+        .querySelector(".post-btn")
+        .addEventListener("click", function () {
+          const student1 = document.getElementById("student1").value;
+          const student2 = document.getElementById("student2").value;
+          const reviewDate = document.getElementById("reviewDate").value;
+          const guide = document.getElementById("assignedGuide").value;
+
+          const guideData = {
+            students: [student1, student2],
+            date: reviewDate,
+            guide: guide,
+          };
+
+          localStorage.setItem("guideData", JSON.stringify(guideData));
+          alert("Review details posted! ");
+        });
+    </script>
+  </body>
+</html>

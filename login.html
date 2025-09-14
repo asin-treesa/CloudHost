@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Final Year Project Portal - Login</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header {
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        padding: 30px 50px 10px 50px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .header img {
+        height: 90px;
+      }
+
+      .header h2 {
+        font-size: 28px;
+        line-height: 1.2;
+        text-align: right;
+        color: #222;
+      }
+
+      .login-container {
+        backdrop-filter: blur(12px);
+        background: rgba(0, 0, 0, 0.4);
+        color: white;
+        width: 600px;
+        margin: 80px auto;
+        padding: 40px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .login-container:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 45px rgba(0, 0, 0, 0.5);
+      }
+
+      .form-section {
+        flex: 1;
+        margin-left: 30px;
+      }
+
+      .form-section h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 26px;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 5px;
+        color: white;
+      }
+
+      input::placeholder {
+        color: #ddd;
+      }
+
+      select {
+        color: white;
+      }
+
+      .login-btn {
+        background: white;
+        color: black;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      .login-btn:hover {
+        background: #ddd;
+        transform: scale(1.05);
+        box-shadow: 0 0 10px rgba(0, 128, 0, 0.2);
+      }
+      .login-btn:active {
+        background: green;
+        color: white;
+        transform: scale(0.98);
+      }
+
+      @media (max-width: 700px) {
+        .login-container {
+          flex-direction: column;
+          width: 90%;
+        }
+
+        .form-section {
+          margin-left: 0;
+          width: 100%;
+        }
+
+        .header {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+      .options {
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <img src="christ.jpg" alt="CHRIST Logo" />
+      </div>
+      <h2>Final Year<br />Project Portal</h2>
+    </div>
+
+    <div class="login-container">
+      <div class="form-section">
+        <h2>Sign in</h2>
+        <label>User name</label>
+        <input type="text" placeholder="User name" id="username" />
+
+        <label>Password</label>
+        <input type="password" placeholder="Password" id="password" />
+
+        <label>Select Role</label>
+
+        <select id="role">
+          <div class="options">
+            <option value="student">Student</option>
+            <option value="guide">Guide</option>
+            <option value="coordinator">Project Coordinator</option>
+            <option value="panel">Panel Member</option>
+          </div>
+        </select>
+
+        <button class="login-btn">Login</button>
+      </div>
+    </div>
+
+    <script>
+      document
+        .querySelector(".login-btn")
+        .addEventListener("click", function () {
+          const role = document.getElementById("role").value;
+
+          if (role === "student") {
+            window.location.href = "student.html";
+          } else if (role === "guide") {
+            window.location.href = "guide.html";
+          } else if (role === "coordinator") {
+            window.location.href = "coordinator.html";
+          } else if (role === "panel") {
+            window.location.href = "panel.html";
+          } else {
+            alert("Please select a valid role.");
+          }
+        });
+    </script>
+  </body>
+</html>

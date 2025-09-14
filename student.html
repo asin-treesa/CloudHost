@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Final Year Project Portal - Project Submission</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #e6f0f8, #c2d2db);
+        margin: 0;
+      }
+
+      .header {
+        background: #4b6874;
+        color: #ffffff;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header .username {
+        display: flex;
+        align-items: center;
+      }
+
+      .header .username span {
+        margin-left: 10px;
+        color: #ffffff;
+      }
+
+      .container {
+        background: #95b5c1;
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 25px 30px;
+        border-radius: 12px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        color: white;
+      }
+
+      .field {
+        margin-bottom: 15px;
+      }
+
+      .field textarea,
+      .field input[type="text"],
+      .field select {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 6px;
+        background: #f0f0f0;
+        color: #000;
+      }
+
+      .submit-btn {
+        background: #00bfff;
+        color: white;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        background: #0099cc;
+      }
+
+      .file-upload {
+        border: 2px dashed #ccc;
+        padding: 30px;
+        text-align: center;
+        color: #eee;
+        border-radius: 8px;
+        background: #597f94;
+      }
+
+      input[type="file"] {
+        margin-top: 10px;
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="username">
+        <div
+          style="
+            background: #888;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+          "
+        ></div>
+        <span>username<br /><small>Student</small></span>
+      </div>
+      <div>
+        <strong>Final Year<br />Project Portal</strong>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Project submission</h2>
+      <p>Welcome username,</p>
+
+      <div class="field">
+        <label>Team members:</label>
+        <input type="text" id="team" />
+      </div>
+
+      <div class="field">
+        <label>Guide preference:</label>
+        <select id="guidePref1">
+          <option>Dr. Ravi Kumar</option>
+          <option>Dr. Shalini Mehta</option>
+          <option>Prof. Akash Roy</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Project title:</label>
+        <input type="text" id="title" />
+      </div>
+
+      <div class="field file-upload">
+        <p>Upload project files</p>
+        <input type="file" id="fileUpload" />
+      </div>
+
+      <div class="field">
+        <label>Project Description:</label>
+        <textarea id="comment" rows="4"></textarea>
+      </div>
+
+      <p>
+        Project will be assigned to a guide and sent for approval of review
+        after submission.
+      </p>
+
+      <button class="submit-btn">Submit</button>
+    </div>
+
+    <script>
+      document
+        .querySelector(".submit-btn")
+        .addEventListener("click", function () {
+          const members = document.getElementById("team").value;
+          const title = document.getElementById("title").value;
+          const comment = document.getElementById("comment").value;
+          const guide = document.getElementById("guidePref1").value;
+          const fileInput = document.getElementById("fileUpload");
+
+          let fileDetails = null;
+
+          if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            fileDetails = {
+              name: file.name,
+              size: file.size,
+              type: file.type,
+            };
+          }
+
+          const studentData = {
+            members: members,
+            title: title,
+            comment: comment,
+            guide: guide,
+            file: fileDetails,
+          };
+
+          localStorage.setItem("studentData", JSON.stringify(studentData));
+          alert("Submitted!");
+        });
+    </script>
+  </body>
+</html>

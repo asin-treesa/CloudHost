@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Final Year Project Portal - Guide Scheduling</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #dbe9f4;
+        margin: 0;
+      }
+
+      .header {
+        background: #003366;
+        color: #fff;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header span {
+        margin-left: 10px;
+      }
+
+      .container {
+        background: #b2d4e9;
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .field {
+        margin-bottom: 15px;
+      }
+
+      select,
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        background: #f9f9f9;
+      }
+
+      .confirm-btn {
+        background: #003366;
+        color: #fff;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+
+      .confirm-btn:hover {
+        background: #005599;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <div
+          style="
+            background: #888;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+          "
+        ></div>
+        <span>username<br /><small>Project coordinator</small></span>
+      </div>
+      <div>
+        <strong>Final Year<br />Project Portal</strong>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Guide preference & Review scheduling</h2>
+      <p>Welcome username,</p>
+
+      <div class="field">
+        <label>Student List</label>
+        <select id="studentList"></select>
+      </div>
+
+      <div class="field">
+        <label>Review Date</label>
+        <input type="text" id="reviewDate" readonly />
+      </div>
+
+      <div class="field">
+        <label>Guide Assigned</label>
+        <input type="text" id="guideName" readonly />
+      </div>
+    </div>
+
+    <script>
+      const guideData = JSON.parse(localStorage.getItem("guideData"));
+
+      if (guideData) {
+        const list = document.getElementById("studentList");
+        list.innerHTML = "";
+
+        guideData.students.forEach((student) => {
+          if (student.trim()) {
+            const option = document.createElement("option");
+            option.textContent = student;
+            list.appendChild(option);
+          }
+        });
+
+        document.getElementById("reviewDate").value = guideData.date;
+        document.getElementById("guideName").value = guideData.guide;
+      } else {
+        alert("No data submitted from guide.");
+      }
+    </script>
+  </body>
+</html>
